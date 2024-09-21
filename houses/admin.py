@@ -3,28 +3,26 @@ from .models import House
 
 # Register your models here.
 
+
 @admin.register(House)
 class HouseAdmin(admin.ModelAdmin):
 
-    fields = ("name","address",("price_per_night", "pets_allowed"),)
-    list_display = ( "name",
+    list_display = (
+        "name",
         "price_per_night",
         "address",
-        "pets_allowed",)
+        "pets_allowed",
+    )
 
-         
     list_filter = (
         "price_per_night",
         "pets_allowed",
     )
 
+    search_fields = ("address__startswith",)
 
-    search_fields = (
-        "address__startswith",
+    list_display_links = (
+        "name",
+        "address",
     )
-
-    list_display_links = ("name","address",)
     list_editable = ("pets_allowed",)
-    # exclude = ("price_per_night",)
-    #fieldset
-
