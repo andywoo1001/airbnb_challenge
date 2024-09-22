@@ -13,11 +13,15 @@ class CustomUserAdmin(admin.ModelAdmin):
             "Profile",
             {
                 "fields": (
+                    "avatar",
                     "username",
                     "password",
                     "name",
                     "email",
                     "is_host",
+                    "gender",
+                    "language",
+                    "currency",
                 ),  # can add staff permission default
                 "classes": ("wide",),
             },
