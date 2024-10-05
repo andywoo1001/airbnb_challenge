@@ -47,6 +47,11 @@ class Room(CommonModel):
         return self.name
 
 
+    # def total_amenities(self):
+    #     print(self)
+    #     return self.amenities.count()
+
+
 class Amenity(CommonModel):
     """Amenity Definiton"""
 
