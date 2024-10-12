@@ -1,16 +1,12 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
-from rest_framework.exceptions import NotFound
 from rest_framework.status import HTTP_204_NO_CONTENT
+from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
-from .serializers import PerkSerializer
 from .models import Perk
-
-# Create your views here.
+from .serializers import PerkSerializer
 
 
 class Perks(APIView):
-
     def get(self, request):
         all_perks = Perk.objects.all()
         serializer = PerkSerializer(all_perks, many=True)
@@ -26,23 +22,22 @@ class Perks(APIView):
 
 
 class PerkDetail(APIView):
-
-    def get_object(slef, pk):
+    def get_object(self, pk):
         try:
-            return Perk.Objects.get(pk=pk)
+            return Perk.objects.get(pk=pk)
         except Perk.DoesNotExist:
             raise NotFound
 
     def get(self, request, pk):
         perk = self.get_object(pk)
-        serialzier = PerkSerializer(perk)
-        return Response(serialzier.data)
+        serializer = PerkSerializer(perk)
+        return Response(serializer.data)
 
     def put(self, request, pk):
         perk = self.get_object(pk)
-        serialzier = PerkSerializer(perk, data=request.data, partial=True)
-        if serialzier.is_valid():
-            updated_perk = serialzier.save()
+        serializer = PerkSerializer(perk, data=request.data, partial=True)
+        if serializer.is_valid():
+            updated_perk = serializer.save()
             return Response(
                 PerkSerializer(updated_perk).data,
             )
@@ -51,5 +46,5 @@ class PerkDetail(APIView):
 
     def delete(self, request, pk):
         perk = self.get_object(pk)
-        perk.delete
-        return Response(sstatus=HTTP_204_NO_CONTENT)
+        perk.delete()
+        return Response(status=HTTP_204_NO_CONTENT)
